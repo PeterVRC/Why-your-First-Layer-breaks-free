@@ -9,20 +9,20 @@ The most common reason is the "Z_HEIGHT" - rather than just say Z_Offset.... bec
 way they tune where Z=0 physically is.
 
 Z_Offset.  That is a setting that tells the system how much HIGHER the Nozzle Tip is compared to what the
-hardware height measurement system told the system eas an "End Stop".
+hardware height measurement system told the system as an "End Stop".
 eg  As the printhead is lowered down, there is a hardware function to tell the system when to stop heading
 downwards, seeing going any lower would (could) hit the print bed.
-This End Stop is pretty well ALWAYS higher than the true contact point.  That is so it wil stop BEFORE
+This End Stop is pretty well ALWAYS higher than the true contact point.  That is so it will stop BEFORE
 ever hitting the bed!
 
 To print successfully, you need to know when the nozzle tip is RIGHT ON the bed. Ideally you want Z=0 to
-be right at that nozzle to bed contact point.  Then you rise to the First layer Height, say 0.2mm to print
+be right at that nozzle to bed contact point.  Then you rise to the First Layer Height, say 0.28mm to print
 that First Layer.
 Adhesion needs that extruded filament to "squish" at least some amount, so that it has "pushed" filament 
-into the bed at least a BIT. So whilst you "say" you want a 0.2mm layer height, it might begin at 0.18mm
-height really, to give that 0.02mm squish amount.
+into the bed at least a BIT. So whilst you "say" you want a 0.28mm layer height, it might begin at 0.22mm
+height really, to give that small squish amount.
 
-So, the End Stop value - whether from Micro Switches, or a probe etc - is some value. Maybe that is 3.2mm
+So, the End Stop value - whether from Micro Switches, or a Probe etc - is some value. Maybe that is 3.2mm
 above the Nozzle tip to bed contact point. So you need to have some OFFSET to add to your End Stop value
 so you can arrive at the true contact point.
 In that above exmaple/number.... 3.2mm.... you would need an Offset of 3.2mm - which a system might
@@ -35,15 +35,23 @@ is entered into the SLICER instead. Z=0 is now still up 3.2mm higher, but all G-
 -3.2mm and thus still corrects for it in the end!
 But the NORMAL way to correct the offset is to use the Z_Offset.... so I advise always using that!
 
-Now you have a Z=0 point that is truly where the nozzle tip contacts the bed.....
-But beds are rarely LEVEL all over!  The point you checked the Z_Height, and then set the Z_Offset to
-correct for, is ONLY valid at that single point! The bed is almost certainly 'wavy'... undulating
+Then there is an "issue" where Z=0 is NOT optimally when the nozzle hits the bed!!! I don't know why 
+that is the case, but the true OPTIMNAL is 0.025mm above the bed surface!  This is why you have to tweak
+your Z_Offset to visually SEE a perfect first layer. But if you set that height PHYSICALLY then it will
+be perfect before ever even needing to test print anything!  So use a FEELER GAUGE to set the Z_Height!!
+They come with 0.020mm and 0.030mm (not 0.025mm) so adjust the Z_Height, so that at Z=0 the 0.020mm
+gauge can slide under the nozzle, but the 0.030mm one can't. Yes, you use the Z_Offset controls to adjust
+this Z_Height, once you have the main Z controls showing the true Z_Height is Z=0.
+
+Now you have a Z=0 point that is truly where the nozzle tip ALMOST contacts the bed.....
+But beds are rarely LEVEL all over!  The point on the bed that you checked the Z_Height, and then set the 
+Z_Offset to correct for, is ONLY valid at that single point! The bed is almost certainly 'wavy'... undulating
 heights.  And this is why Bed Leveling/Meshing was created...
 
 The system can test and record a Height Map of the bed. Well, that is IF you have Bed Leveling hardware,
 such as a Probe of some kind!  You could still MANUALLY test and record a Bed Mesh (grid of positions)
 to save and have the system use that, but that is quite tedious!  But 3D printer users had to do that
-if they had no probve setup! These days almost every printer has a probe of some kind on it!
+if they had no probe setup! These days almost every printer has a probe of some kind on it!
 
 So you do a Bed Mesh (creation) and then all the wavy, undulations, are known., and the Z_Offset will
 have another value offset that, to match the Bed Mesh recording. Thus the nozzle tip wil now TRACK the
